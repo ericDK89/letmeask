@@ -1,0 +1,55 @@
+:root {
+  --white-50: #ffffff;
+  --white-75: #fefefe;
+  --white-100: #e2e2e2;
+  --white-200: #f8f8f8;
+
+  --gray-500: #a8a8b3;
+  --gray-600: #737380;
+  --gray-700: #29292e;
+
+  --purple-400: #e559f9;
+  --purple-500: #835afd;
+
+  --red-500: #ea4335;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--white-200);
+  color: var(--gray-700);
+}
+
+body,
+input,
+button,
+textarea {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+}
+
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%; //15px
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    font-size: 87.5%; //14px
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
