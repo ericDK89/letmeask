@@ -10,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 import "../styles/auth.scss";
 
 export function Home() {
-  const { user, singInWithGoogle } = useAuth();
+  const { singInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState("");
 
   const navigate = useNavigate();
@@ -67,6 +67,7 @@ export function Home() {
               type="text"
               placeholder="Digite o código da sala"
               onChange={(e) => setRoomCode(e.target.value)}
+              required
             />
             <Button type="submit">Entrar na sala</Button>
           </form>

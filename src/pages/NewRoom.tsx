@@ -1,7 +1,6 @@
 import { getDatabase, push, ref } from "firebase/database";
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
@@ -17,15 +16,7 @@ export function NewRoom() {
     e.preventDefault();
 
     if (newRoom.trim() === "") {
-      return toast.warn("O nome da sala não pode estar vazio", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      return
     }
 
     const firebaseRoom = push(ref(db, "rooms/"), {
