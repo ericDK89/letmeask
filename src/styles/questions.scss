@@ -18,6 +18,31 @@
     align-items: center;
     margin-top: 24px;
 
+    button {
+      border: 0;
+      background: transparent;
+      transition: filter 0.2s;
+
+      &.like-button {
+        display: flex;
+        align-items: flex-end;
+        color: var(--gray-600);
+        gap: 8px;
+
+        &.liked {
+          color: var(--purple-500);
+
+          svg path {
+            stroke: var(--purple-500);
+          }
+        }
+      }
+
+      &:hover {
+        filter: brightness(0.7);
+      }
+    }
+
     .question-user-info {
       display: flex;
       align-items: center;

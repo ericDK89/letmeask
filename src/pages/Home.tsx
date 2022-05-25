@@ -44,6 +44,18 @@ export function Home() {
       });
     }
 
+    if (roomsRef.val().endAt) {
+      return toast.error("Sala já foi encerrada", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
     navigate(`/rooms/${roomCode}`);
   }
 

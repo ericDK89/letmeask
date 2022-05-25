@@ -19,6 +19,19 @@
     margin-right: 8px;
   }
 
+  &.outlined {
+    background-color: var(--white-50);
+    border: 1px solid var(--purple-500);
+    color: var(--purple-500);
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: var(--purple-500);
+      color: var(--white-50);
+      filter: none !important;
+    }
+  }
+
   &:not(:disabled):hover {
     filter: brightness(0.8);
   }

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { AdminRoom } from "./pages/AdminRoom";
 import { Home } from "./pages/Home";
 import { NewRoom } from "./pages/NewRoom";
 import { Rooms } from "./pages/Rooms";
@@ -14,6 +15,7 @@ export function App() {
         <Route path="/" element={<Home />} />
         <Route path="/rooms/new" element={<NewRoom />} />
         <Route path="/rooms/:id" element={<Rooms />} />
+        <Route path="/admin/rooms/:id" element={<AdminRoom />} />
       </Routes>
       <ToastContainer
         position="top-right"

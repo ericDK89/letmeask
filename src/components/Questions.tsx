@@ -6,9 +6,10 @@ interface QuestionsProps {
     name: string;
     avatar: string;
   };
+  children?: React.ReactNode;
 }
 
-export function Questions({ content, author }: QuestionsProps) {
+export function Questions({ content, author, children }: QuestionsProps) {
   return (
     <div className="question">
       <p>{content}</p>
@@ -17,7 +18,7 @@ export function Questions({ content, author }: QuestionsProps) {
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </div>
-        <div></div>
+        <div> {children} </div>
       </footer>
     </div>
   );
