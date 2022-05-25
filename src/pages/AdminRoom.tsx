@@ -1,4 +1,5 @@
 import { getDatabase, ref, remove, update } from "firebase/database";
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import deleteImg from "../assets/images/delete.svg";
 import logoImg from "../assets/images/logo.svg";
@@ -15,6 +16,7 @@ type RoomParams = {
 export function AdminRoom() {
   const { id } = useParams<RoomParams>();
   const { questions, title } = useRoom(id);
+  const [adminToolsIsTrue, setAdminToolsIsTrue] = useState(false);
   const db = getDatabase();
   const navigate = useNavigate();
 
@@ -27,11 +29,25 @@ export function AdminRoom() {
   async function handleEndRoom() {
     if (window.confirm("Tem certeza que você deseja encerrar a sala?")) {
       await update(ref(db, `rooms/${id}`), {
-        endAt: new Date(),
+        closedAt: new Date(),
       });
 
       navigate("/");
     }
+  }
+
+  async function handleCheckQuestionAsAnswered(questionId: string) {
+    setAdminToolsIsTrue(!adminToolsIsTrue);
+    await update(ref(db, `rooms/${id}/questions/${questionId}`), {
+      isAnswered: adminToolsIsTrue,
+    });
+  }
+
+  async function handleHighlightQuestion(questionId: string) {
+    setAdminToolsIsTrue(!adminToolsIsTrue);
+    await update(ref(db, `rooms/${id}/questions/${questionId}`), {
+      isHighlighted: adminToolsIsTrue,
+    });
   }
 
   return (
@@ -66,7 +82,63 @@ export function AdminRoom() {
                 key={question.id}
                 content={question.content}
                 author={question.author}
+                isAnswered={question.isAnswered}
+                isHighlighted={question.isHighlighted}
               >
+                <button
+                  type="button"
+                  className={`answerButton ${question.isAnswered ? "answeredButton" : ""} 
+                  `}
+                  onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12.0003"
+                      cy="11.9998"
+                      r="9.00375"
+                      stroke="#737380"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M8.44287 12.3391L10.6108 14.507L10.5968 14.493L15.4878 9.60193"
+                      stroke="#737380"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  className={`highlightButton ${question.isHighlighted ? "highlightedButton" : ""}`}
+                  onClick={() => handleHighlightQuestion(question.id)}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M12 17.9999H18C19.657 17.9999 21 16.6569 21 14.9999V6.99988C21 5.34288 19.657 3.99988 18 3.99988H6C4.343 3.99988 3 5.34288 3 6.99988V14.9999C3 16.6569 4.343 17.9999 6 17.9999H7.5V20.9999L12 17.9999Z"
+                      stroke="#737380"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
                 <button
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}

@@ -1,3 +1,4 @@
+import cx from "classnames";
 import "../styles/questions.scss";
 
 interface QuestionsProps {
@@ -7,18 +8,32 @@ interface QuestionsProps {
     avatar: string;
   };
   children?: React.ReactNode;
+  isAnswered?: boolean;
+  isHighlighted?: boolean;
 }
 
-export function Questions({ content, author, children }: QuestionsProps) {
+export function Questions({
+  content,
+  author,
+  children,
+  isAnswered = false,
+  isHighlighted = false,
+}: QuestionsProps) {
   return (
-    <div className="question">
+    <div
+      className={cx(
+        "question",
+        { answered: isAnswered },
+        { highlighted: isHighlighted && !isAnswered }
+      )}
+    >
       <p>{content}</p>
       <footer>
         <div className="question-user-info">
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </div>
-        <div> {children} </div>
+        <div className="question-children"> {children} </div>
       </footer>
     </div>
   );
